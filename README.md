@@ -1,4 +1,5 @@
 # crazyfinds
+<<<<<<< HEAD
 
 ## Build Setup
 
@@ -67,3 +68,6 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+=======
+Crazy finds E-commerce Platform
+>>>>>>> b9a9415298e5c62b3b036cd61b88d82374bc8dc3
