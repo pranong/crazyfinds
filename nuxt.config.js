@@ -48,7 +48,6 @@ export default {
   auth: {
     // Options
   },
-  
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
