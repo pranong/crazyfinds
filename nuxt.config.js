@@ -1,6 +1,10 @@
 import colors from "vuetify/es5/util/colors";
 
 export default {
+  server: {
+    port: 3009, // default: 3000
+    // host: "172.19.100.112", // default: localhost
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -36,48 +40,24 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/auth-next"],
-
-  // router: {
-  //   middleware: ['auth']
-  // },
-
-  axios: {
-    baseURL: "http://localhost:9000/api",
-  },
+  modules: ["@nuxtjs/axios", "@nuxtjs/auth-next", "nuxt-sweetalert2"],
 
   auth: {
-    strategies: {
-      local: {
-        token: {
-          property: "token",
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        user: {
-          property: "user",
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: "sessions", method: "post", propertyName: "token" },
-          logout: { url: "/api/auth/logout", method: "post" },
-          user: { url: "/api/auth/user", method: "get" },
-        },
-      },
-      auth0: {
-        domain: "dev-g0nuo62m.us.auth0.com",
-        clientId: "DHNVuDSqmd3kWyXxULx4QAyPvZKw3eBU",
-        // logoutRedirectUri: 'http://localhost:3009',
-      },
-    },
+    // strategies: {
+    //   local: false,
+    //   auth0: {
+    //     domain: "dev-g0nuo62m.us.auth0.com",
+    //     clientId: "DHNVuDSqmd3kWyXxULx4QAyPvZKw3eBU",
+    //     // logoutRedirectUri: 'http://localhost:3009',
+    //   },
+    // },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
     theme: {
-      dark: true,
+      // dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
