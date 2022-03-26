@@ -4,6 +4,7 @@ export default {
   server: {
     port: 3009, // default: 3000
     // host: "172.19.100.112", // default: localhost
+    host: "0.0.0.0",
   },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
