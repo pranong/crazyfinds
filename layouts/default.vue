@@ -1,38 +1,87 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" fixed app>
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <!-- Nav Bar -->
     <v-app-bar :clipped-left="clipped" fixed dense app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-
-      <v-toolbar-title v-text="title" />
+      <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" /> -->
+      <img class="mr-3" :src="require('../assets/logo.png')" height="40" />
+      <!-- <v-toolbar-title v-text="title" /> -->
 
       <v-spacer />
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-        <!-- <v-icon>mdi-heart-outline</v-icon> -->
-      </v-btn>
+      <v-text-field
+        class="mt-6 expanding-search"
+        :class="{ closed: searchClosed && !searchData }"
+        placeholder="Search"
+        prepend-inner-icon="mdi-magnify"
+        @focus="searchClosed = false"
+        @blur="searchClosed = true"
+        v-model="searchData"
+        filled
+        dense
+        clearable
+      ></v-text-field>
+
+      <v-menu transition="slide-y-transition" offset-y bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-avatar>
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>John Leider</v-list-item-title>
+                <v-list-item-subtitle>Founder of Vuetify</v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn :class="fav ? 'red--text' : ''" icon @click="fav = !fav">
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+
+          <v-divider></v-divider>
+
+          <v-list>
+            <v-list-item>
+              <v-list-item-action>
+                <v-switch v-model="message" color="purple"></v-switch>
+              </v-list-item-action>
+              <v-list-item-title>Enable messages</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-action>
+                <v-switch v-model="hints" color="purple"></v-switch>
+              </v-list-item-action>
+              <v-list-item-title>Enable hints</v-list-item-title>
+            </v-list-item>
+          </v-list>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn text @click="menu = false"> Cancel </v-btn>
+            <v-btn color="primary" text @click="menu = false"> Save </v-btn>
+          </v-card-actions>
+        </v-card>
+        <!-- <v-list>
+          <v-list-item v-for="(item, i) in items" :key="i">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list> -->
+      </v-menu>
+
       <v-badge
         bordered
         color="error"
@@ -67,6 +116,8 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
+      searchClosed: true,
+      searchData: "",
       cart: [
         { stkId: "1", itemName: "A", price: "999" },
         { stkId: "2", itemName: "A", price: "999" },
@@ -79,7 +130,7 @@ export default {
       items: [
         {
           icon: "mdi-home",
-          title: "Home",
+          title: "T-Shirt",
           to: "/",
         },
         {
@@ -96,3 +147,15 @@ export default {
   },
 };
 </script>
+<style lang="sass">
+.v-input.expanding-search
+  transition: max-width 0.3s
+  .v-input__slot
+    cursor: pointer !important
+    &:before, &:after
+      border-color: transparent !important
+  &.closed
+      max-width: 45px
+      .v-input__slot
+        background: transparent !important
+</style>
